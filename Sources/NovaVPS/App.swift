@@ -104,7 +104,7 @@ struct ManagerView: View {
             Spacer(minLength: 0)
             Divider()
             Button("导入已有配置…") { showImport = true }.disabled(model.busy)
-            Text("独立部署工具 · v0.1.1").font(.system(size: 11)).foregroundStyle(NovaStyle.muted)
+            Text("独立部署工具 · v0.2.0").font(.system(size: 11)).foregroundStyle(NovaStyle.muted)
         }.padding(18).frame(width: 198).background(NovaStyle.sidebar)
     }
 
