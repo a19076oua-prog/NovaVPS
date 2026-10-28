@@ -19,7 +19,7 @@ const ui=path.resolve(__dirname,'../ui/index.html');
 const trusted=event=>{if(event.sender!==win?.webContents||event.senderFrame!==event.sender.mainFrame||event.senderFrame.url!==pathToFileURL(ui).href)throw Error('来源无效。 / Invalid IPC source.');};
 function state(){return {version:app.getVersion(),platform:process.platform,busy,status,records:store?.records||[],selectedID:selected?.id||null,pin:currentPin?{host:currentPin.host,port:currentPin.port,fingerprint:currentPin.fingerprint}:null,confirmed,hasPanel:!!panel,tunnelURL:tunnel.url};}
 function broadcast(){if(win&&!win.isDestroyed())win.webContents.send('nvps:state',state());}
-async function operation(fn){if(busy)throw Error('已有操作正在进行。 / An operation is already running.');busy=true;broadcast();try{return await fn();}finally{busy=false;broadcast();}}
+async function operation(fn){if(busy)throw Error('已有操作正在进行。 / An operation is already running.');busy=true;broadcast();try{await fn();}finally{busy=false;broadcast();}return state();}
 async function save(r,name,result){const record={...(selected||{id:randomUUID()}),name:String(name||r.host).slice(0,80),request:r,pin:M.pin(currentPin,r)};if(record.node&&(record.node.server!==r.host||record.node.port!==r.nodePort)){delete record.node;delete record.verifiedAt;delete record.milliseconds;}if(result){record.lastState=result.state;if(result.node){if(JSON.stringify(record.node)!==JSON.stringify(result.node)){delete record.verifiedAt;delete record.milliseconds;}record.node=result.node;}}selected=await store.put(record);}
 function verified(r){const p=M.pin(currentPin,r);if(!confirmed)throw Error('请先核对并确认 SSH 指纹。 / Confirm the SSH fingerprint first.');return p;}
 const actions={
