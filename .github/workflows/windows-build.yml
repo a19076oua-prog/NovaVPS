@@ -1,0 +1,55 @@
+name: Windows build and packaged runtime checks
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'Desktop/**'
+      - 'Resources/panel-manager.py'
+      - '.github/workflows/windows-build.yml'
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: Desktop
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - name: Install locked dependencies without optional native builds
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Test configuration, private storage, QR and SSH forwarding on Windows
+        run: npm test
+      - name: Download and verify official Windows Xray core
+        run: node scripts/prepare-core.cjs win32-x64
+      - name: Collect bundled dependency licenses
+        run: npm run prepare:licenses
+      - name: Build Windows installer and portable ZIP
+        run: npm run build:win
+      - name: Launch the packaged Windows executable and verify real runtime
+        run: node scripts/run-smoke.cjs dist/win-unpacked/NovaVPS.exe
+      - name: Save native Windows verification evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: Windows-runtime-evidence
+          path: Desktop/smoke-results/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Save installable Windows builds
+        uses: actions/upload-artifact@v7
+        with:
+          name: NovaVPS-Windows-x64
+          path: |
+            Desktop/dist/*-Setup.exe
+            Desktop/dist/*-Windows-x64.zip
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
