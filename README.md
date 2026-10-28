@@ -1,8 +1,15 @@
-# NovaVPS 0.1.1
+# NovaVPS 0.2.0
 
-[中英双语使用说明书 / Chinese–English User Guide](docs/USER_GUIDE.zh-en.md)
+[macOS 中英双语使用说明书 / macOS Chinese–English User Guide](docs/USER_GUIDE.zh-en.md)
 
-独立的 macOS VPS 部署与管理软件。无需启动 NovaProxy。
+
+**Windows + macOS**：Windows 10/11 x64 提供安装 EXE 与便携 ZIP；macOS Apple Silicon 继续提供原生 SwiftUI PKG。两个平台都支持后台安装、SSH 隧道和配置分享，发布包均为空白个人数据。
+
+**Windows + macOS**: installer EXE and portable ZIP for Windows 10/11 x64; native SwiftUI PKG retained for Apple Silicon macOS. Both manage the panel, SSH tunnel and configuration sharing, without bundled personal data.
+
+[Windows 中英说明 / Windows guide](docs/WINDOWS.zh-en.md) · [Desktop 构建 / Build](Desktop/README.md)
+
+独立的 VPS 部署与管理软件。无需启动 NovaProxy。
 
 ## 能做什么
 
@@ -14,7 +21,7 @@
 
 ## 使用
 
-1. 安装发布附件中的 `NovaVPS-Installer.pkg`，从“应用程序”打开 **NovaVPS**。
+1. Windows：运行发布附件中的 `NovaVPS-0.2.0-Windows-x64-Setup.exe`；或完整解压便携 ZIP 后运行 `NovaVPS.exe`。macOS：安装 `NovaVPS-Installer.pkg`，从“应用程序”打开 **NovaVPS**。
 2. 填写 VPS IP、SSH 端口（通常 22）、SSH 用户、密码和空闲节点端口。
 3. 点击“检查 SSH 指纹”，与服务商控制台核对后勾选确认。
 4. 只需要后台时，点击“安装网页后台”；不检查或修改节点端口，原有 443 服务可以继续运行。需要新节点时，点击“生成新节点”，所填端口必须空闲。首次下载可能需要数分钟。SSH 密码不保存到磁盘；切换 VPS 或退出即清除。
@@ -34,7 +41,7 @@
 
 ## 文件与隐私
 
-本机服务器记录在 `~/Library/Application Support/NovaVPS/servers.json`，目录权限 700、文件权限 600；保存 SSH 公钥指纹与节点客户端参数，不保存 SSH 密码或后台 API Token。导出文件包含节点凭据，也使用私有文件权限。二维码在本机生成。
+macOS 原生版记录在 `~/Library/Application Support/NovaVPS/servers.json`，目录权限 700、文件权限 600。Windows 版记录在 `%APPDATA%\NovaVPS Desktop\private\servers.json`，使用当前用户和 SYSTEM 的私有 ACL。保存 SSH 公钥指纹与节点客户端参数，不保存 SSH 密码或后台 API Token。导出文件包含节点凭据，也使用私有文件权限。二维码在本机生成。
 
 ## 验证边界
 
@@ -49,19 +56,19 @@ NOVAVPS_XRAY_BINARY=/absolute/path/to/xray bash scripts/build.sh
 python3 Tests/test_manager.py
 ```
 
-程序使用本地临时签名，未做 Apple 公证。源码和第三方许可随包提供；详见 LICENSE、THIRD_PARTY.md 和 SHARED_SOURCES.json。
+Windows 构建使用 `Desktop/` 中固定版本的 Electron、内置 SSH 客户端和官方 Xray 内核，详见 [构建说明](Desktop/README.md)。Windows 安装包未做 Authenticode 签名；macOS 程序使用本地临时签名，未做 Apple 公证。源码和第三方许可随包提供；详见 LICENSE、THIRD_PARTY.md 和 SHARED_SOURCES.json。
 
 仓库只保存源码、测试和文档；应用、安装包与源码分发 ZIP 作为发布附件提供。本地服务器记录、SSH 密码和导出节点文件不进入 Git。
 
 ## English quick start
 
-NovaVPS is a standalone macOS VPS manager. Install its managed 3x-ui panel, open it through an SSH tunnel, and generate TCP VLESS / Reality / Vision node configurations.
+NovaVPS is a standalone Windows and macOS VPS manager. Install its managed 3x-ui panel, open it through an SSH tunnel, and generate TCP VLESS / Reality / Vision node configurations.
 
-1. Install `NovaVPS-Installer.pkg` from the release attachments and open NovaVPS.
+1. Windows: run `NovaVPS-0.2.0-Windows-x64-Setup.exe`, or fully extract the portable ZIP and run `NovaVPS.exe`. macOS: install `NovaVPS-Installer.pkg` and open NovaVPS.
 2. Enter your VPS IP, SSH port, username and password, then check and confirm the SSH fingerprint against the VPS console.
 3. Use **安装网页后台 / Install web panel** for the panel alone. An occupied node port does not block this workflow. Use **生成新节点 / Generate new node** only with an unused node port.
 4. Open the web panel and copy its initial login credentials, or open **配置 / Configuration** to export Xray JSON, Clash YAML, a VLESS link and a QR PNG.
 
-Requirements: Apple Silicon Mac; Debian/Ubuntu VPS with systemd, x86_64 or arm64, and root or passwordless sudo. Cloud and server firewalls must permit the selected node TCP port; the app does not open these rules automatically.
+Client requirements: Windows 10/11 x64 or Apple Silicon macOS 13+. VPS requirements: Debian/Ubuntu with systemd, x86_64 or arm64, and root or passwordless sudo. Cloud and server firewalls must permit the selected node TCP port; the app does not open these rules automatically.
 
 Distributions start with empty personal data. Your VPS records, SSH passwords and exported node credentials are not included. Local tests have passed; end-to-end installation on a real Linux VPS is not yet verified. See the [full bilingual guide](docs/USER_GUIDE.zh-en.md) and [validation record](VALIDATION.md).

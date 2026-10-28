@@ -32,3 +32,11 @@ node-qr.png
 *.swp
 *.swo
 *~
+
+# Cross-platform desktop build artifacts
+Desktop/dist/
+Desktop/resources/core/
+Desktop/.cache/
+*.exe
+*.blockmap
+Desktop/smoke-results/
