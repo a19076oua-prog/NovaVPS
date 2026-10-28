@@ -1,0 +1,90 @@
+{
+  "name": "novavps-desktop",
+  "productName": "NovaVPS",
+  "version": "0.2.0",
+  "description": "Cross-platform NovaVPS desktop manager with private SSH panel access",
+  "main": "src/main.cjs",
+  "author": "NovaVPS contributors",
+  "license": "GPL-3.0-only",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.cjs",
+    "prepare:core": "node scripts/prepare-core.cjs",
+    "build:win": "electron-builder --win nsis zip --x64 --publish never",
+    "build:mac:test": "electron-builder --mac dir --arm64 --publish never",
+    "smoke": "node scripts/run-smoke.cjs",
+    "prepare:licenses": "node scripts/licenses.cjs"
+  },
+  "dependencies": {
+    "qrcode": "1.5.4",
+    "ssh2": "1.17.0",
+    "yaml": "2.9.1"
+  },
+  "devDependencies": {
+    "electron": "45.1.0",
+    "electron-builder": "26.18.0",
+    "extract-zip": "2.0.1",
+    "jsqr": "1.4.0"
+  },
+  "build": {
+    "appId": "local.novavps.desktop",
+    "asar": true,
+    "npmRebuild": false,
+    "files": [
+      "src/**",
+      "ui/**",
+      "package.json",
+      "!node_modules/cpu-features/**",
+      "!node_modules/ssh2/lib/protocol/crypto/build/**"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "extraResources": [
+      {
+        "from": "../Resources/panel-manager.py",
+        "to": "panel-manager.py"
+      },
+      {
+        "from": "resources/core",
+        "to": "core"
+      },
+      {
+        "from": "../LICENSE",
+        "to": "LICENSE"
+      },
+      {
+        "from": "../THIRD_PARTY.md",
+        "to": "THIRD_PARTY.md"
+      },
+      {
+        "from": "resources/THIRD-PARTY-LICENSES.txt",
+        "to": "THIRD-PARTY-LICENSES.txt"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "artifactName": "NovaVPS-${version}-Windows-${arch}.${ext}",
+      "signExecutable": false,
+      "icon": "resources/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": true,
+      "runAfterFinish": false,
+      "artifactName": "NovaVPS-${version}-Windows-${arch}-Setup.${ext}",
+      "deleteAppDataOnUninstall": false
+    },
+    "mac": {
+      "target": "dir",
+      "category": "public.app-category.utilities",
+      "identity": null,
+      "icon": "resources/icon.icns"
+    }
+  }
+}
