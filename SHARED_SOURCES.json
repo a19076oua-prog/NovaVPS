@@ -1,0 +1,50 @@
+[
+  {
+    "source": "outputs/NovaProxy/Sources/NovaProxy/Configuration.swift",
+    "file": "Sources/Shared/Configuration.swift",
+    "sourceSHA256": "79332ed47ac6d2081c775f20e90b12cc328fed048d35c831e8be570296669ea7",
+    "changes": "unchanged"
+  },
+  {
+    "source": "outputs/NovaProxy/Sources/NovaProxy/NativeXrayProfile.swift",
+    "file": "Sources/Shared/NativeXrayProfile.swift",
+    "sourceSHA256": "c21c3c8f28592fee2bc1b2183a27803640c6e0f4949f51d704aa4917a2a9a78c",
+    "changes": "unchanged"
+  },
+  {
+    "source": "outputs/NovaProxy/Sources/NovaProxy/RealityBridge.swift",
+    "file": "Sources/Shared/RealityBridge.swift",
+    "sourceSHA256": "864786c15aadef6c489801ccbabb33118fa01074f107431fb23fd2615fd57808",
+    "changes": "unchanged"
+  },
+  {
+    "source": "outputs/NovaProxy/Sources/NovaProxy/Deployment.swift",
+    "file": "Sources/Shared/Deployment.swift",
+    "sourceSHA256": "24e177809abc2bdd7e836102d686224ce0910953352c04a09d1ac6a2df23cabd",
+    "changes": "Reusable internal SSH transport; Codable and Equatable node; NovaVPS export label; IPv6 URL host brackets"
+  },
+  {
+    "source": "outputs/NovaProxy/Sources/NovaProxy/Connectivity.swift",
+    "file": "Sources/Shared/Connectivity.swift",
+    "sourceSHA256": "1e6fdf4c79717a4cda3ec38b52eb35b87f9606520fae172d7d6cde9c6fdff039",
+    "changes": "unchanged"
+  },
+  {
+    "source": "outputs/NovaProxy/Sources/NovaProxy/Supervisor.swift",
+    "file": "Sources/Shared/Supervisor.swift",
+    "sourceSHA256": "bd7c3d66052aad3b1757a6cb03a930e3b104e07f17ebae0ea44d147b0d12c7b8",
+    "changes": "Parent-supervised SSH tunnel launcher"
+  },
+  {
+    "source": "outputs/NovaProxy/Sources/NovaProxy/NodeSharing.swift",
+    "file": "Sources/Shared/NodeSharing.swift",
+    "sourceSHA256": "f44cfc880d269f7d5b4918892c7a6acca91265d9f3d50d5cb9a382ee8f7390ef",
+    "changes": "unchanged"
+  },
+  {
+    "source": "outputs/NovaProxy/Sources/NovaProxy/UIStyle.swift",
+    "file": "Sources/Shared/UIStyle.swift",
+    "sourceSHA256": "5c0bc182e8230b03c42edac6dc70b34ae848b7643e031545255d1a3bcd0d9672",
+    "changes": "unchanged"
+  }
+]
