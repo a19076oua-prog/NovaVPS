@@ -1,0 +1,8 @@
+{
+  "version": "v26.10.21",
+  "source": "https://github.com/XTLS/Xray-core/tree/v26.10.21",
+  "archiveURL": "https://github.com/XTLS/Xray-core/releases/download/v26.10.21/Xray-macos-arm64-v8a.zip",
+  "archiveSHA256": "926cc55fda2a8757dabe4f22dc98772f218ace025f101bd0b68aee232e59d5dc",
+  "binarySHA256": "94a9bfc0df6a0462552d535861f8a1580a0a6c94f7b0d30fe312daa0024ede2e",
+  "bundledBinarySHA256": "87c939ee859e37582b6ad6113d86ebd9b17eefab3b8712117ac84e4c50a2fb30"
+}
